@@ -20,7 +20,8 @@ router.get('/features', function (req, res) {
 router.post('/features', function (req, res) {
   new Feature({
     title: req.body.title,
-    description: req.body.description
+    description: req.body.description,
+    scenarios: req.body.scenarios
   }).save(function (err, feature, count) {
       if (err) throw err;
 

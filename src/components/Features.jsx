@@ -1,5 +1,6 @@
 const React = require('react');
 const FeatureForm = require('./FeatureForm.jsx');
+const slug = require('slug');
 
 const Features = React.createClass({
     getInitialState: function () {
@@ -46,8 +47,21 @@ const Features = React.createClass({
         }.bind(this));
     },
 
-    render: function () {
-        const features = this.state.features.map(function (feature) {
+    renderScenarios: function (feature) {
+        return feature.scenarios.map(function (scenario) {
+            return (
+                <div className="panel panel-default" key={slug(scenario.title)}>
+                    <div className="panel-heading">{scenario.title}</div>
+                    <div className="panel-body">{scenario.description}</div>
+                </div>
+            )
+        });
+    },
+
+    renderFeatures: function () {
+        return this.state.features.map(function (feature) {
+            const scenarios = this.renderScenarios(feature);
+
             return (
                 <div key={feature._id} className="panel panel-default">
                     <div className="panel-heading">
@@ -62,11 +76,16 @@ const Features = React.createClass({
                     </div>
                     <div className="panel-body">
                         {feature.description}
+
+                        <h2>Scenarios</h2>
+                        {scenarios}
                     </div>
                 </div>
             );
         }.bind(this));
+    },
 
+    render: function () {
         return (
             <div className="panel panel-defautl">
                 <div className="panel-body">
@@ -77,7 +96,7 @@ const Features = React.createClass({
                     </div>
                     <div className="panel panel-default col-sm-6">
                         <div className="panel-body">
-                            {features}
+                            {this.renderFeatures()}
                         </div>
                     </div>
                 </div>
