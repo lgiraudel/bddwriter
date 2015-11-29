@@ -1,4 +1,4 @@
-import { ADD_FEATURE, ADD_SCENARIO, REMOVE_SCENARIO, ADD_STEP } from '../actions/actions';
+import { ADD_FEATURE, ADD_SCENARIO, REMOVE_SCENARIO, ADD_STEP } from '../constants/constants';
 
 export default function forms(state = {
     featureCreationForm: {

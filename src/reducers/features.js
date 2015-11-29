@@ -1,4 +1,4 @@
-import { ADD_FEATURE, REMOVE_FEATURE, RECEIVE_FEATURES } from '../actions/actions';
+import { ADD_FEATURE, REMOVE_FEATURE, RECEIVE_FEATURES } from '../constants/constants';
 
 export default function features(state = [], action) {
     switch (action.type) {

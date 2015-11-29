@@ -1,4 +1,4 @@
-import { REQUEST_FEATURES, RECEIVE_FEATURES, TOGGLE_SCENARIO_FORM, ADD_SCENARIO } from '../actions/actions';
+import { REQUEST_FEATURES, RECEIVE_FEATURES, TOGGLE_SCENARIO_FORM, ADD_SCENARIO } from '../constants/constants';
 
 export default function ui(state = {
     isFetching: false,
