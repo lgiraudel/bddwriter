@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
+import { JSONHeaders } from '../utils/utils';
+
 export const ADD_FEATURE = 'ADD_FEATURE';
 export const REMOVE_FEATURE = 'REMOVE_FEATURE';
 export const REQUEST_FEATURES = 'REQUEST_FEATURES';
@@ -8,13 +10,6 @@ export const TOGGLE_SCENARIO_FORM = 'SHOW_SCENARIO_FORM';
 export const ADD_SCENARIO = 'ADD_SCENARIO';
 export const REMOVE_SCENARIO = 'REMOVE_SCENARIO';
 export const ADD_STEP = 'SAVE_STEP';
-
-const JSONHeaders = {
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    }
-};
 
 export function addFeature(feature) {
     return dispatch => {
