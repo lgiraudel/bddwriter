@@ -1,9 +1,23 @@
-/** @jsx React.DOM */
-var React         = require('react');
-var ReactDOM = require('react-dom');
-var App = require('./components/App.jsx');
+import React from 'react';
+import { render } from 'react-dom';
+import { createStore, applyMiddleware } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import createLogger from 'redux-logger';
+import { Provider } from 'react-redux';
+import App from './containers/App.jsx';
+import bddApp from './reducers/reducers';
 
-ReactDOM.render(
-  <App/>,
-  document.getElementById("react-container")
+const loggerMiddleware = createLogger();
+const createStoreWithMiddleware = applyMiddleware(
+    thunkMiddleware,
+    loggerMiddleware
+)(createStore);
+
+let store = createStoreWithMiddleware(bddApp);
+
+render(
+    <Provider store={store}>
+        <App/>
+    </Provider>,
+    document.getElementById('react-container')
 );
