@@ -10,6 +10,11 @@ var Feature = new Schema({
         steps: []
     }]
 });
-
 mongoose.model('Feature', Feature);
+
+var Step = new Schema({
+    pattern: String
+});
+mongoose.model('Step', Step);
+
 mongoose.connect('mongodb://localhost/bddwriter');

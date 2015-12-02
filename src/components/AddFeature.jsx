@@ -41,8 +41,12 @@ export default class AddFeature extends Component {
                         </div>
                         <h3>Steps</h3>
                         <ul>
-                            {this.props.currentSteps.map(step =>
-                                <li key={slug(step)}>{step}</li>
+                            {this.props.currentSteps.map((step, i) => {
+                                var values = step.values;
+                                return (
+                                    <li key={i}>{step.step.pattern.replace(/"<String>"|<Number>/g, function() { return values.shift(); })}</li>
+                                )
+                            }
                             )}
                         </ul>
                         <div className='form-group'>

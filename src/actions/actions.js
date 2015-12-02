@@ -2,8 +2,8 @@ import fetch from 'isomorphic-fetch';
 
 import { TOGGLE_SCENARIO_FORM, ADD_SCENARIO, REMOVE_SCENARIO, ADD_STEP } from '../constants/constants';
 
-import { addFeature, removeFeature, fetchFeatures } from './ajax';
-export { addFeature, removeFeature, fetchFeatures };
+import { addFeature, removeFeature, fetchFeatures, addStep, fetchSteps } from './ajax';
+export { addFeature, removeFeature, fetchFeatures, addStep, fetchSteps };
 
 export function toggleScenarioForm() {
     return {
@@ -22,12 +22,5 @@ export function removeScenario(scenario) {
     return {
         type: REMOVE_SCENARIO,
         scenario: scenario
-    };
-}
-
-export function addStep(step) {
-    return {
-        type: ADD_STEP,
-        step: step
     };
 }

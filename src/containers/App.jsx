@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addFeature, removeFeature, fetchFeatures, toggleScenarioForm, addScenario, removeScenario, addStep } from '../actions/actions';
+import { addFeature, removeFeature, fetchFeatures, toggleScenarioForm, addScenario, removeScenario, addStep, fetchSteps } from '../actions/actions';
 import AddFeature from '../components/AddFeature.jsx';
 import FeatureList from '../components/FeatureList.jsx';
 
@@ -8,6 +8,7 @@ class App extends Component {
     componentDidMount() {
         const { dispatch } = this.props;
         dispatch(fetchFeatures());
+        dispatch(fetchSteps());
     }
 
     render() {

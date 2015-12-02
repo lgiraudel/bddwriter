@@ -1,4 +1,5 @@
-import { ADD_FEATURE, ADD_SCENARIO, REMOVE_SCENARIO, ADD_STEP } from '../constants/constants';
+import { ADD_FEATURE, ADD_SCENARIO, REMOVE_SCENARIO, ADD_PENDING_STEP_TO_SCENARIO } from '../constants/constants';
+import slug from 'slug';
 
 export default function forms(state = {
     featureCreationForm: {
@@ -43,14 +44,14 @@ export default function forms(state = {
                     scenarios: []
                 }
             }
-        case ADD_STEP:
+        case ADD_PENDING_STEP_TO_SCENARIO:
             return {
                 ...state,
                 featureCreationForm: {
                     ...state.featureCreationForm,
                     currentSteps: [
                         ...state.featureCreationForm.currentSteps,
-                        action.step
+                        { stepId: action.stepId, values: action.values, step: action.step }
                     ]
                 }
             }

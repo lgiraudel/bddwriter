@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import slug from 'slug';
 
 import features from './features';
 import ui from './ui';

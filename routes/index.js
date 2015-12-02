@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Feature = require('../server/models/Feature.js');
+var Step = require('../server/models/Step.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -38,5 +39,21 @@ router.delete('/features', function (req, res) {
   });
 });
 
+router.get('/steps', function(req, res) {
+    Step.find(function(err, steps, count) {
+        if (err) throw err;
+
+        res.end(JSON.stringify(steps));
+    });
+});
+router.post('/steps', function(req, res) {
+    new Step({
+        pattern: req.body.pattern
+    }).save(function(err, step, count) {
+        if (err) throw err;
+
+        res.end(JSON.stringify(step));
+    });
+});
 
 module.exports = router;

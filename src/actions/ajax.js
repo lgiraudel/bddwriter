@@ -1,5 +1,14 @@
 import { JSONHeaders } from '../utils/utils';
-import { ADD_FEATURE, REMOVE_FEATURE, REQUEST_FEATURES, RECEIVE_FEATURES } from '../constants/constants';
+import {
+    ADD_FEATURE,
+    REMOVE_FEATURE,
+    REQUEST_FEATURES,
+    RECEIVE_FEATURES,
+    REQUEST_STEPS,
+    RECEIVE_STEPS,
+    ADD_STEP,
+    ADD_PENDING_STEP_TO_SCENARIO
+} from '../constants/constants';
 
 export function addFeature(feature) {
     return dispatch => {
@@ -8,7 +17,7 @@ export function addFeature(feature) {
             ...JSONHeaders,
             body: JSON.stringify(feature)
         })
-            .then(req => req.json())
+            .then(res => res.json())
             .then(json => dispatch({type: ADD_FEATURE, feature: json}));
     }
 }
@@ -29,11 +38,48 @@ export function fetchFeatures() {
         dispatch({ type: REQUEST_FEATURES });
 
         return fetch('/features')
-            .then(req => req.json())
+            .then(res => res.json())
             .then(json => dispatch({
                 type: RECEIVE_FEATURES,
                 features: json,
                 receivedAt: Date.now()
             }));
     }
+}
+
+export function fetchSteps() {
+    return dispatch => {
+        dispatch({ type: REQUEST_STEPS });
+
+        return fetch('/steps')
+            .then(res => res.json())
+            .then(json => {
+                console.log(json);
+                dispatch({
+                type: RECEIVE_STEPS,
+                steps: json,
+                receivedAt: Date.now()
+            })
+        });
+    }
+}
+
+export function addStep(step) {
+    let found = step.match(/".*?"|[0-9]+/g);
+    let pattern = step.replace(/".*?"/g, '"<String>"').replace(/[0-9]+/g, '<Number>');
+
+    return dispatch => {
+        return fetch('/steps', {
+            method: 'POST',
+            ...JSONHeaders,
+            body: JSON.stringify({
+                pattern: pattern
+            })
+        })
+        .then(res => res.json())
+        .then(json => {
+            dispatch({type: ADD_STEP, step: json});
+            dispatch({type: ADD_PENDING_STEP_TO_SCENARIO, values: found, stepId: json._id, step: json});
+        });
+    };
 }
