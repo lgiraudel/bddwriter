@@ -53,14 +53,11 @@ export function fetchSteps() {
 
         return fetch('/steps')
             .then(res => res.json())
-            .then(json => {
-                console.log(json);
-                dispatch({
+            .then(json => dispatch({
                 type: RECEIVE_STEPS,
                 steps: json,
                 receivedAt: Date.now()
-            })
-        });
+            }));
     }
 }
 

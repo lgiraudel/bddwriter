@@ -47,12 +47,18 @@ router.get('/steps', function(req, res) {
     });
 });
 router.post('/steps', function(req, res) {
-    new Step({
-        pattern: req.body.pattern
-    }).save(function(err, step, count) {
-        if (err) throw err;
+    Step.find({ pattern: req.body.pattern }, function(err, steps) {
+        if (steps.length) {
+            res.end(JSON.stringify(steps[0]));
+        } else {
+            new Step({
+                pattern: req.body.pattern
+            }).save(function(err, step, count) {
+                if (err) throw err;
 
-        res.end(JSON.stringify(step));
+                res.end(JSON.stringify(step));
+            });
+        }
     });
 });
 

@@ -42,7 +42,9 @@ export default class AddFeature extends Component {
                         <h3>Steps</h3>
                         <ul>
                             {this.props.currentSteps.map((step, i) => {
-                                var values = step.values;
+                                var values = step.values ? [
+                                    ...step.values
+                                ] : null;
                                 return (
                                     <li key={i}>{step.step.pattern.replace(/"<String>"|<Number>/g, function() { return values.shift(); })}</li>
                                 )

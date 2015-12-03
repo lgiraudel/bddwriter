@@ -8,6 +8,9 @@ export default function steps(state = [], action) {
                 ...action.steps
             ];
         case ADD_STEP:
+            var search = state.filter(step => step._id === action.step._id);
+            if (search.length) return state;
+
             return [
                 ...state,
                 action.step
