@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import slug from 'slug';
+import Autosuggest from 'react-autosuggest';
 
 export default class AddFeature extends Component {
     render() {
@@ -52,7 +53,24 @@ export default class AddFeature extends Component {
                             )}
                         </ul>
                         <div className='form-group'>
-                            <input type='text' placeholder='Given...' className='form-control' onKeyDown={e => this.handleKeyDown(e)} ref='stepInput'/>
+                            <Autosuggest
+                                ref='stepInput'
+                                suggestions={(input, callback) => callback(null, this.props.steps.filter(step => step.pattern.includes(input)))}
+                                suggestionRenderer={(suggestion, input) => (
+                                    <a>{suggestion.pattern}</a>
+                                )}
+                                suggestionValue={suggestion => suggestion.pattern}
+                                inputAttributes={{
+                                    onKeyPress: event => this.handleKeyDown(event),
+                                    placeholder: 'Step',
+                                    className: 'form-control'
+                                }}
+                                theme={{
+                                    root: 'dropdown open',
+                                    suggestions: 'dropdown-menu',
+                                    suggestionIsFocused: 'dropdown-menu__item--focused',
+                                }}
+                            />
                         </div>
                         <button className='btn btn-primary' onClick={() => this.handleScenarioSaveClick()}>Save scenario</button>
                     </div>
@@ -97,18 +115,14 @@ export default class AddFeature extends Component {
     }
 
     handleKeyDown(e) {
-        if (e.keyCode === 13) { // Enter
-            this.saveStep(this.refs.stepInput.value);
-            this.refs.stepInput.value = '';
-            this.refs.stepInput.placeholder = this.updatePlaceholder(this.refs.stepInput.placeholder);
-        }
-    }
+        var value = this.refs.stepInput.state.value.trim();
 
-    updatePlaceholder(currentPlaceholder) {
-        switch (currentPlaceholder) {
-            case 'Given...': return 'When...';
-            case 'When...': return 'Then...';
-            default: return 'And...';
+        if (e.nativeEvent.keyCode === 13 && value !== '' && !value.includes('"<String>"') && !value.includes('<Number>')) { // Enter
+            this.saveStep(value);
+            this.refs.stepInput.setState({
+                ...this.refs.stepInput.state,
+                value: ''
+            });
         }
     }
 
