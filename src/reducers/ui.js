@@ -2,7 +2,7 @@ import { REQUEST_FEATURES, RECEIVE_FEATURES, TOGGLE_SCENARIO_FORM, ADD_SCENARIO 
 
 export default function ui(state = {
     isFetching: false,
-    scenarioFormVisible: false
+    scenarioFormVisible: true
 }, action) {
     switch (action.type) {
         case REQUEST_FEATURES:
