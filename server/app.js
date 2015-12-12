@@ -12,8 +12,9 @@ var routes = require('./routes/index');
 
 var app = express();
 
+var viewsDir = path.join(__dirname, 'views');
 // view engine setup
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', viewsDir);
 app.set('view engine', 'html');
 
 app.use(favicon());
@@ -22,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-nunjucks.configure('views', {
+nunjucks.configure(viewsDir, {
     autoescape: true,
     express: app
 });
@@ -42,6 +43,7 @@ app.use(function(req, res, next) {
 // will print stacktrace
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
+        console.log(err);
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
