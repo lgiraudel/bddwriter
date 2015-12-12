@@ -5,7 +5,7 @@ import slug from 'slug';
 export default class Feature extends Component {
     render() {
         return (
-            <div key={this.props._id} className='panel panel-default'>
+            <div className='panel panel-default'>
                 <div className='panel-heading'>
                     <div className='row'>
                         <div className='col-sm-8'>Feature: {this.props.title}</div>
@@ -23,8 +23,8 @@ export default class Feature extends Component {
                             <div className='panel-body'>
                                 {scenario.description}
                                 <ul>
-                                    {scenario.steps.map(step =>
-                                        <li key={slug(step)}>{step}</li>
+                                    {scenario.steps.map((step, i) =>
+                                        <li key={i}>{step.step.pattern}</li>
                                     )}
                                 </ul>
                             </div>
