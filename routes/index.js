@@ -7,18 +7,15 @@ var Step = require('../server/models/Step.js');
 router.get('/', function(req, res) {
   res.render('index', { title: 'Main' });
 });
-router.get('/other', function(req, res) {
-  res.render('other', { title: 'Other' });
-});
 
-router.get('/features', function (req, res) {
+router.get('/api/features', function (req, res) {
   Feature.find(function (err, features, count) {
     if (err) throw err;
 
     res.end(JSON.stringify(features));
   })
 });
-router.post('/features', function (req, res) {
+router.post('/api/features', function (req, res) {
   new Feature({
     title: req.body.title,
     description: req.body.description,
@@ -29,7 +26,7 @@ router.post('/features', function (req, res) {
       res.end(JSON.stringify(feature));
     });
 });
-router.delete('/features', function (req, res) {
+router.delete('/api/features', function (req, res) {
   Feature.findById(req.body._id, function (err, feature) {
     if (err) throw err;
 
@@ -39,14 +36,14 @@ router.delete('/features', function (req, res) {
   });
 });
 
-router.get('/steps', function(req, res) {
+router.get('/api/steps', function(req, res) {
     Step.find(function(err, steps, count) {
         if (err) throw err;
 
         res.end(JSON.stringify(steps));
     });
 });
-router.post('/steps', function(req, res) {
+router.post('/api/steps', function(req, res) {
     Step.find({ pattern: req.body.pattern }, function(err, steps) {
         if (steps.length) {
             res.end(JSON.stringify(steps[0]));
@@ -60,6 +57,9 @@ router.post('/steps', function(req, res) {
             });
         }
     });
+});
+router.get('*', function(req, res) {
+  res.render('index', { title: 'Main' });
 });
 
 module.exports = router;

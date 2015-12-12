@@ -12,7 +12,7 @@ import {
 
 export function addFeature(feature) {
     return dispatch => {
-        return fetch('/features', {
+        return fetch('/api/features', {
             method: 'POST',
             ...JSONHeaders,
             body: JSON.stringify(feature)
@@ -24,7 +24,7 @@ export function addFeature(feature) {
 
 export function removeFeature(_id) {
     return dispatch => {
-        return fetch('/features', {
+        return fetch('/api/features', {
             method: 'DELETE',
             ...JSONHeaders,
             body: JSON.stringify({_id: _id})
@@ -37,7 +37,7 @@ export function fetchFeatures() {
     return dispatch => {
         dispatch({ type: REQUEST_FEATURES });
 
-        return fetch('/features')
+        return fetch('/api/features')
             .then(res => res.json())
             .then(json => dispatch({
                 type: RECEIVE_FEATURES,
@@ -51,7 +51,7 @@ export function fetchSteps() {
     return dispatch => {
         dispatch({ type: REQUEST_STEPS });
 
-        return fetch('/steps')
+        return fetch('/api/steps')
             .then(res => res.json())
             .then(json => dispatch({
                 type: RECEIVE_STEPS,
@@ -66,7 +66,7 @@ export function addStep(step) {
     let pattern = step.replace(/".*?"/g, '"<String>"').replace(/[0-9]+/g, '<Number>');
 
     return dispatch => {
-        return fetch('/steps', {
+        return fetch('/api/steps', {
             method: 'POST',
             ...JSONHeaders,
             body: JSON.stringify({
