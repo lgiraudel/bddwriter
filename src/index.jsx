@@ -3,8 +3,9 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 import { Route, IndexRoute } from 'react-router';
-import createStore from './utils/createStore';
 import { ReduxRouter } from 'redux-router';
+
+import createStore from './utils/createStore';
 
 import App from './containers/App.jsx';
 import FeaturesPage from './containers/FeaturesPage.jsx';
