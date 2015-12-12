@@ -21,7 +21,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, 'public')));
 nunjucks.configure('views', {
     autoescape: true,
     express: app
@@ -48,17 +48,17 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
+} else {
+    // production error handler
+    // no stacktraces leaked to user
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: {}
+        });
     });
-});
+}
 
 
 module.exports = app;
