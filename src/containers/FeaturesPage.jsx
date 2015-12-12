@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FeatureList from '../components/FeatureList.jsx';
 import { Link } from 'react-router';
-import { fetchFeatures, fetchSteps } from '../actions/actions';
+import { fetchFeatures, fetchSteps, removeFeature } from '../actions/actions';
 
 class FeaturesPage extends Component {
     componentDidMount() {
@@ -12,6 +12,8 @@ class FeaturesPage extends Component {
     }
 
     render() {
+        const { dispatch } = this.props;
+
         return (
             <div>
                 <Link to="/feature/new">New</Link>
