@@ -8,33 +8,37 @@ export default class Feature extends Component {
             <div className='panel panel-default'>
                 <div className='panel-heading'>
                     <div className='row'>
-                        <div className='col-sm-8'>Feature: {this.props.title}</div>
+                        <h4 className='panel-title col-sm-8'>
+                            <a data-toggle='collapse' data-parent='#features-accordion' href={'#' + this.props._id}>Feature: {this.props.title}</a>
+                        </h4>
                         <div className='text-right col-sm-4'>
                             <a className='glyphicon glyphicon-remove' onClick={this.props.onRemoveClick}></a>
                         </div>
                     </div>
                 </div>
-                <div className='panel-body'>
-                    {this.props.description}
+                <div id={this.props._id} className='panel-collapse collapse'>
+                    <div className='panel-body'>
+                        {this.props.description}
 
-                    {this.props.scenarios.map(scenario =>
-                        <div className='panel panel-default' key={scenario._id}>
-                            <div className='panel-heading'>Scenario: {scenario.title}</div>
-                            <div className='panel-body'>
-                                {scenario.description}
-                                <ul>
-                                    {scenario.steps.map((step, i) => {
-                                        const stepWithValues = step.step.pattern.replace(/"<String>"|<Number>/, step.values);
+                        {this.props.scenarios.map(scenario =>
+                            <div className='panel panel-default' key={scenario._id}>
+                                <div className='panel-heading'>Scenario: {scenario.title}</div>
+                                <div className='panel-body'>
+                                    {scenario.description}
+                                    <ul>
+                                        {scenario.steps.map((step, i) => {
+                                            const stepWithValues = step.step.pattern.replace(/"<String>"|<Number>/, step.values);
 
-                                        return (
-                                            <li key={slug(stepWithValues)}>{stepWithValues}</li>
-                                        )
-                                    }
-                                    )}
-                                </ul>
+                                            return (
+                                                <li key={slug(stepWithValues)}>{stepWithValues}</li>
+                                            )
+                                        }
+                                        )}
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             </div>
         );
