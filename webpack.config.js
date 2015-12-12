@@ -14,7 +14,7 @@ module.exports = {
     main:  './src/index.jsx'
   },
   output: {
-    path: 'public/build',
+    path: 'build',
     filename: '[name].js'
   },
   module: {
