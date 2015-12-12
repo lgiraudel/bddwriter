@@ -18,6 +18,7 @@ class FeatureFormPage extends Component {
                 onStepSave={step => dispatch(addStep(step))}
                 steps={this.props.steps}
                 currentSteps={this.props.currentSteps}
+                onCancelClick={e => this.props.history.pushState('/features')}
             />
         )
     }
@@ -36,7 +37,7 @@ function select(state) {
         scenarioFormVisible: state.ui.scenarioFormVisible,
         steps: state.steps,
         currentSteps: state.forms.featureCreationForm.currentSteps,
-        hhistory: state.history
+        history: state.history
     };
 }
 

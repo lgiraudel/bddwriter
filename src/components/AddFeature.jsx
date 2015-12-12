@@ -48,7 +48,8 @@ export default class AddFeature extends Component {
                         <button className='btn btn-primary' onClick={() => this.handleScenarioSaveClick()}>Save scenario</button>
                     </div>
                 </div>
-                <button className='btn btn-primary' onClick={e => this.handleSaveClick(e)}>Save</button>
+                <button className='btn btn-primary' onClick={e => this.handleSaveClick(e)}>Save</button>&nbsp;
+                <button className='btn btn-default' onClick={e => this.props.onCancelClick(e)}>Cancel</button>
             </div>
         )
     }
