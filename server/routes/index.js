@@ -1,7 +1,8 @@
 var express = require('express');
+var Feature = require('../models/Feature.js');
+var Step = require('../models/Step.js');
+
 var router = express.Router();
-var Feature = require('../server/models/Feature.js');
-var Step = require('../server/models/Step.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
