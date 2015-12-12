@@ -1,28 +1,33 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { compose, createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
-import { devTools, persistState } from 'redux-devtools';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+import { Route, IndexRoute } from 'react-router';
+import createStore from './utils/createStore';
+import { ReduxRouter } from 'redux-router';
+
 import App from './containers/App.jsx';
-import bddApp from './reducers/reducers';
+import FeaturesPage from './containers/FeaturesPage.jsx';
+import FeatureFormPage from './containers/FeatureFormPage.jsx';
 
-const loggerMiddleware = createLogger();
-const createStoreWithMiddleware = compose(
-    applyMiddleware(thunkMiddleware, loggerMiddleware),
-    devTools(),
-    persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
-)(createStore);
 
-let store = createStoreWithMiddleware(bddApp);
+const routes = (
+    <Route path='/' component={App}>
+        <Route path='features' component={FeaturesPage}></Route>
+        <Route path='feature/new' component={FeatureFormPage}></Route>
+        <IndexRoute component={FeaturesPage}/>
+    </Route>
+);
+
+let store = createStore(routes);
 
 render(
     <div className='row'>
         <div className='col-sm-9'>
             <Provider store={store}>
-                <App/>
+                <ReduxRouter>
+                    {routes}
+                </ReduxRouter>
             </Provider>
         </div>
         <div className='col-sm-3'>

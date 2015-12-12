@@ -5,11 +5,11 @@ import ui from './ui';
 import forms from './forms';
 import steps from './steps';
 
-const bddApp = combineReducers({
+const bddApp = {
     features: features,
     ui: ui,
     forms: forms,
     steps: steps
-});
+};
 
 export default bddApp;
