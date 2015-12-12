@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FeatureList from '../components/FeatureList.jsx';
-import { Link } from 'react-router';
 import { fetchFeatures, fetchSteps, removeFeature } from '../actions/actions';
 
 class FeaturesPage extends Component {
@@ -16,7 +15,6 @@ class FeaturesPage extends Component {
 
         return (
             <div>
-                <Link to="/feature/new">New</Link>
                 <FeatureList features={this.props.features} onRemoveClick={_id => dispatch(removeFeature(_id))}/>
             </div>
         )

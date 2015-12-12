@@ -16,3 +16,7 @@ a {
     text-decoration: none;
     background-color: #f5f5f5;
 }
+
+.add-feature-button {
+    margin-bottom: 1em;
+}
