@@ -23,8 +23,13 @@ export default class Feature extends Component {
                             <div className='panel-body'>
                                 {scenario.description}
                                 <ul>
-                                    {scenario.steps.map((step, i) =>
-                                        <li key={i}>{step.step.pattern}</li>
+                                    {scenario.steps.map((step, i) => {
+                                        const stepWithValues = step.step.pattern.replace(/"<String>"|<Number>/, step.values);
+
+                                        return (
+                                            <li key={slug(stepWithValues)}>{stepWithValues}</li>
+                                        )
+                                    }
                                     )}
                                 </ul>
                             </div>
