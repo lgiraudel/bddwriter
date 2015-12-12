@@ -8,9 +8,11 @@ export default class Feature extends Component {
             <div className='panel panel-default'>
                 <div className='panel-heading'>
                     <div className='row'>
-                        <h4 className='panel-title col-sm-8'>
-                            <a data-toggle='collapse' data-parent='#features-accordion' href={'#' + this.props._id}>Feature: {this.props.title}</a>
-                        </h4>
+                        <a data-toggle='collapse' data-parent='#features-accordion' href={'#' + this.props._id}>
+                            <h4 className='panel-title col-sm-8'>
+                                Feature: {this.props.title}
+                            </h4>
+                        </a>
                         <div className='text-right col-sm-4'>
                             <a className='glyphicon glyphicon-remove' onClick={this.props.onRemoveClick}></a>
                         </div>
