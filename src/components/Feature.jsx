@@ -10,7 +10,7 @@ export default class Feature extends Component {
                     <div className='row'>
                         <a data-toggle='collapse' data-parent='#features-accordion' href={'#' + this.props._id}>
                             <h4 className='panel-title col-sm-8'>
-                                Feature: {this.props.title}
+                                Feature: {this.props.title} <span className='badge'>{this.props.scenarios.length} scenario{this.props.scenarios.length > 1 ? 's' : ''}</span>
                             </h4>
                         </a>
                         <div className='text-right col-sm-4'>
