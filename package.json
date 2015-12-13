@@ -11,6 +11,7 @@
     "isomorphic-fetch": "^2.2.0",
     "mongoose": "^4.2.7",
     "morgan": "^1.6.1",
+    "node-env-file": "^0.1.8",
     "nunjucks": "^2.2.0",
     "react": "^0.14.3",
     "react-addons-update": "^0.14.3",

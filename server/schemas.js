@@ -1,6 +1,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+if (!process.env.DB) {
+    var env = require('node-env-file');
+    env(__dirname + '/../.env');
+}
+
 var Feature = new Schema({
     title: String,
     description: String,
@@ -17,4 +22,4 @@ var Step = new Schema({
 });
 mongoose.model('Step', Step);
 
-mongoose.connect('mongodb://localhost/bddwriter');
+mongoose.connect(process.env.DB);
