@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AddFeature from '../components/AddFeature.jsx';
 import { connect } from 'react-redux';
 import { addFeature, toggleScenarioForm, addScenario, removeScenario, addStep } from '../actions/actions';
+import { pushState } from 'redux-router';
 
 class FeatureFormPage extends Component {
     render() {
@@ -18,7 +19,7 @@ class FeatureFormPage extends Component {
                 onStepSave={step => dispatch(addStep(step))}
                 steps={this.props.steps}
                 currentSteps={this.props.currentSteps}
-                onCancelClick={e => this.props.history.pushState('/features')}
+                onCancelClick={e => this.props.pushState('/features')}
             />
         )
     }
@@ -27,7 +28,7 @@ class FeatureFormPage extends Component {
         let { dispatch } = this.props;
 
         dispatch(addFeature(feature))
-        this.props.history.pushState('/features');
+        this.props.pushState('/features');
     }
 }
 
@@ -36,9 +37,8 @@ function select(state) {
         scenarios: state.forms.featureCreationForm.scenarios,
         scenarioFormVisible: state.ui.scenarioFormVisible,
         steps: state.steps,
-        currentSteps: state.forms.featureCreationForm.currentSteps,
-        history: state.history
+        currentSteps: state.forms.featureCreationForm.currentSteps
     };
 }
 
-export default connect(select)(FeatureFormPage);
+export default connect(select, { pushState })(FeatureFormPage);
