@@ -45,6 +45,7 @@
     "start": "webpack --progress --colors --watch -d",
     "build": "webpack --progress --colors -p",
     "server": "node server/run",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm run build"
   }
 }
