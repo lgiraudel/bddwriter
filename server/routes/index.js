@@ -1,6 +1,8 @@
 var express = require('express');
 var Feature = require('../models/Feature.js');
 var Step = require('../models/Step.js');
+var request = require('request');
+var moment = require('moment');
 
 var router = express.Router();
 
@@ -59,6 +61,30 @@ router.post('/api/steps', function(req, res) {
         }
     });
 });
+
+router.get('/last-deploy', function(req, res) {
+    if (!process.env.HEROKU_TOKEN || !process.env.HEROKU_APP_URL) {
+        res.status(404).end();
+        return;
+    }
+
+    var herokuToken = process.env.HEROKU_TOKEN;
+    var herokuApiUrl = process.env.HEROKU_APP_URL;
+
+    request({
+        url: herokuApiUrl,
+        headers: {
+            'Accept': 'application/vnd.heroku+json; version=3',
+            'Authorization': 'Bearer ' + herokuToken
+        }
+    }, function(err, response, body) {
+        if (err) throw err;
+        var json = JSON.parse(body);
+
+        res.redirect('https://img.shields.io/badge/Last%20deploy-' + moment(json.updated_at).fromNow() + '-6762A6.svg')
+    });
+});
+
 router.get('*', function(req, res) {
   res.render('index', { title: 'Main' });
 });

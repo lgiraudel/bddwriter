@@ -5,7 +5,7 @@ class App extends Component {
     render() {
         return (
             <div className='container-fluid'>
-                <div className='navbar navbar-default'>
+                <div className='navbar navbar-default navbar-fixed-top'>
                     <div className='container-fluid'>
                         <span className='navbar-brand'>BDD Writer</span>
                         <ul className='nav navbar-nav'>
@@ -17,6 +17,10 @@ class App extends Component {
                 <div>
                     {this.props.children}
                 </div>
+                <footer className='footer text-center'>
+                    <p>Created by Purch Grenoble Team</p>
+                    <img src='/last-deploy'></img>
+                </footer>
             </div>
         )
     }
