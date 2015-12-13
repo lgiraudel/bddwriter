@@ -1,4 +1,3 @@
-### Status
 [![Build Status](https://travis-ci.org/lgiraudel/bddwriter.svg)](https://travis-ci.org/lgiraudel/bddwriter.svg)
 
 BDD Writer
