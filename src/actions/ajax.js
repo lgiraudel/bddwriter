@@ -62,8 +62,8 @@ export function fetchSteps() {
 }
 
 export function addStep(step) {
-    let found = step.match(/".*?"|[0-9]+/g);
-    let pattern = step.replace(/".*?"/g, '"<String>"').replace(/[0-9]+/g, '<Number>');
+    let found = step.text.match(/".*?"|[0-9]+/g);
+    let pattern = step.text.replace(/".*?"/g, '"<String>"').replace(/[0-9]+/g, '<Number>');
 
     return dispatch => {
         return fetch('/api/steps', {
@@ -76,7 +76,7 @@ export function addStep(step) {
         .then(res => res.json())
         .then(json => {
             dispatch({type: ADD_STEP, step: json});
-            dispatch({type: ADD_PENDING_STEP_TO_SCENARIO, values: found, stepId: json._id, step: json});
+            dispatch({type: ADD_PENDING_STEP_TO_SCENARIO, values: found, stepId: json._id, step: json, tableValues: step.tableValues});
         });
     };
 }

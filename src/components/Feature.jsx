@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { removeFeature } from '../actions/actions';
 import slug from 'slug';
+import TableValues from './TableValues.jsx';
 
 export default class Feature extends Component {
     render() {
@@ -30,9 +31,13 @@ export default class Feature extends Component {
                                     <ul>
                                         {scenario.steps.map((step, i) => {
                                             const stepWithValues = step.step.pattern.replace(/"<String>"|<Number>/, step.values);
+                                            const valuesTable = step.tableValues ? <TableValues values={step.tableValues}/> : '';
 
                                             return (
-                                                <li key={slug(stepWithValues)}>{stepWithValues}</li>
+                                                <li key={slug(stepWithValues)}>
+                                                    {stepWithValues}
+                                                    {valuesTable}
+                                                </li>
                                             )
                                         }
                                         )}

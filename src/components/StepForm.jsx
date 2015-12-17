@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 import ValuesCreationTable from './ValuesCreationTable.jsx';
+import TableValues from './TableValues.jsx';
 
 export default class StepForm extends Component {
     constructor() {
@@ -22,18 +23,23 @@ export default class StepForm extends Component {
 
     render() {
         const valuesCreationTableToggler = this.state.valuesCreationTableVisible ? null : this.getValuesCreationTableToggler();
-        const valuesCreationTable = this.state.valuesCreationTableVisible ? <ValuesCreationTable/> : null;
+        const valuesCreationTable = this.state.valuesCreationTableVisible ? <ValuesCreationTable ref='valuesTable'/> : null;
 
         return (
             <div>
                 <h3>Steps</h3>
                 <ul>
                     {this.props.currentSteps.map((step, i) => {
-                        var values = step.values ? [
+                        const values = step.values ? [
                             ...step.values
                         ] : null;
+                        const tableValues = step.tableValues ? <TableValues values={step.tableValues}/> : '';
+
                         return (
-                            <li key={i}>{step.step.pattern.replace(/"<String>"|<Number>/g, function() { return values.shift(); })}</li>
+                            <li key={i}>
+                                {step.step.pattern.replace(/"<String>"|<Number>/g, function() { return values.shift(); })}
+                                {tableValues}
+                            </li>
                         )
                     }
                     )}
@@ -70,7 +76,19 @@ export default class StepForm extends Component {
         var value = this.refs.stepInput.state.value.trim();
 
         if (e.nativeEvent.keyCode === 13 && value !== '' && !value.includes('"<String>"') && !value.includes('<Number>')) { // Enter
-            this.saveStep(value);
+            let tableValues = null;
+
+            if (this.refs.valuesTable) {
+                tableValues = this.refs.valuesTable.getTableValues();
+            }
+            this.setState({
+                ...this.state,
+                valuesCreationTableVisible: false
+            });
+            this.saveStep({
+                text: value,
+                tableValues: tableValues
+            });
             this.refs.stepInput.setState({
                 ...this.refs.stepInput.state,
                 value: ''

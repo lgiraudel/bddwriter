@@ -18,7 +18,7 @@ class ValuesCreationTable extends Component {
                         {[...Array(this.state.lines)].map((x, i) =>
                             <tr key={'l_' + i}>
                                 {[...Array(this.state.columns)].map((y, j) =>
-                                    <td key={'c_' + j} contentEditable></td>
+                                    <td key={'c_' + j} ref={'cell_' + i + '_' + j} contentEditable></td>
                                 )}
                             </tr>
                         )}
@@ -45,6 +45,19 @@ class ValuesCreationTable extends Component {
             ...this.state,
             columns: this.state.columns + 1
         })
+    }
+
+    getTableValues() {
+        let valuesMatrix = [];
+        for (var i = 0; i < this.state.lines; i++) {
+            let values = [];
+            for (var j = 0; j < this.state.columns; j++) {
+                values.push(this.refs['cell_' + i + '_' + j].innerText);
+            }
+            valuesMatrix.push(values);
+        }
+
+        return valuesMatrix;
     }
 }
 

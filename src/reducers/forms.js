@@ -51,7 +51,7 @@ export default function forms(state = {
                     ...state.featureCreationForm,
                     currentSteps: [
                         ...state.featureCreationForm.currentSteps,
-                        { stepId: action.stepId, values: action.values, step: action.step }
+                        { stepId: action.stepId, values: action.values, step: action.step, tableValues: action.tableValues }
                     ]
                 }
             }
